@@ -19,6 +19,19 @@ public class GetFlickrData extends AsyncTask<String, Void, List<Photo>> implemen
     private String mLanguage;
     private boolean mMatchAll;
     private final OnDataAvailable mCallBack;
+    private boolean runningOnSameThread = false;
+
+    interface OnDataAvailable{
+        void onDataAvailable(List<Photo> data, DownloadStatus status);
+    }
+
+    public GetFlickrData(OnDataAvailable callBack, String baseURL, String language, boolean matchAll) {
+        Log.d(TAG, "GetFlickrData: called");
+        mBaseURL = baseURL;
+        mLanguage = language;
+        mMatchAll = matchAll;
+        mCallBack = callBack;
+    }
 
     @Override
     public void onDownloadComplete(String data, DownloadStatus status) {
@@ -56,7 +69,7 @@ public class GetFlickrData extends AsyncTask<String, Void, List<Photo>> implemen
             }
         }
 
-        if(mCallBack != null){
+        if(runningOnSameThread && mCallBack != null){
             //now inform caller that the processing is done
             //was an error
             mCallBack.onDataAvailable(mPhotoList, status);
@@ -69,32 +82,25 @@ public class GetFlickrData extends AsyncTask<String, Void, List<Photo>> implemen
     protected List<Photo> doInBackground(String... params) {
         Log.d(TAG, "doInBackground: starts");
         String destinationUri = createUri(params[0], mLanguage, mMatchAll);
-        // continue here tomorrow
-        return null;
+        GetRawData getRawData = new GetRawData(this);
+        getRawData.runInSameThread(destinationUri);
+        return mPhotoList;
     }
 
     @Override
     protected void onPostExecute(List<Photo> photos) {
-        super.onPostExecute(photos);
-    }
-
-    interface OnDataAvailable{
-        void onDataAvailable(List<Photo> data, DownloadStatus status);
-    }
-
-    public GetFlickrData(OnDataAvailable callBack, String baseURL, String language, boolean matchAll) {
-        Log.d(TAG, "GetFlickrData: called");
-        mBaseURL = baseURL;
-        mLanguage = language;
-        mMatchAll = matchAll;
-        mCallBack = callBack;
+        Log.d(TAG, "onPostExecute: starts");
+        if(mCallBack !=null){
+            mCallBack.onDataAvailable(mPhotoList, DownloadStatus.OK);
+        }
+        Log.d(TAG, "onPostExecute: ends");
     }
 
     void executeOnSameThread(String searchCriteria){
         Log.d(TAG, "executeOnSameThread: starts");
+        runningOnSameThread = true;
         String destinationUri = createUri(searchCriteria, mLanguage, mMatchAll);
         GetRawData getRawData = new GetRawData(this);
-//        getRawData.onPostExecute(destinationUri);
         getRawData.execute(destinationUri);
         Log.d(TAG, "executeOnSameThread: ends");
     }

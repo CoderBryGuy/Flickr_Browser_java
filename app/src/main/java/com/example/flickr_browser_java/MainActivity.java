@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity implements GetFlickrData.OnD
         Log.d(TAG, "onPostResume: starts");
         super.onResume();
         GetFlickrData getFlickrData = new GetFlickrData(this,"https://api.flickr.com/services/feeds/photos_public.gne", "en-us", true);
-        getFlickrData.executeOnSameThread("android, nougat");
+//        getFlickrData.executeOnSameThread("android, nougat");
+        getFlickrData.execute("android, nougat");
         Log.d(TAG, "onResume: ends");
     }
 
