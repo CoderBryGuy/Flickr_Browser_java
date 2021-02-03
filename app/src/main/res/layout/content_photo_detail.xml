@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" android:orientation="vertical">
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:padding="8dp">
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" app:cardCornerRadius="8dp" android:layout_marginBottom="16dp">
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" android:orientation="vertical">
+                <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                </ScrollView>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/photo_author"
+                        android:layout_margin="8dp"/>
+                <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" app:srcCompat="@drawable/place_holder"
+                        android:id="@+id/photo_image" android:layout_margin="8dp" android:scaleType="fitCenter"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/photo_title" android:layout_margin="8dp"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/photo_tags" android:layout_margin="8dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
+</LinearLayout>
