@@ -12,14 +12,24 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:parentActivityName=".MainActivity"
                 android:name=".PhotoDetailActivity"
                 android:label="@string/title_activity_photo_detail"
                 android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.flickr_browser_java.MainActivity"
+            />
         </activity>
         <activity
+                android:parentActivityName=".MainActivity"
                 android:name=".SearchActivity"
                 android:label="@string/title_activity_search"
                 android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.example.flickr_browser_java.MainActivity"
+            />
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>

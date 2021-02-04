@@ -14,7 +14,7 @@ public class BaseActivity extends AppCompatActivity {
         Log.d(TAG, "activateToolbar: starts");
         ActionBar actionBar = getSupportActionBar();
 
-        if(actionBar != null){
+        if(actionBar == null){
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
             if(toolbar != null){
